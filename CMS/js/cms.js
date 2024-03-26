@@ -186,7 +186,7 @@ const generateMenuItems = (cat) => {
                 <span class="fs-6l mt-2 mb-2  px-4 ">
                     <small> از </small>
                     <b>${minPrice}</b>
-                    <small>هزار تومان</small>
+                    <small>تومان</small>
                 </span>
 
                 <div class="row justify-content-around">
@@ -217,7 +217,7 @@ const generateMenuItems = (cat) => {
                         `
                 <li class="d-flex  justify-content-between w-80 py-2">
                     <span class="">${item.options[i]}</span>
-                    <strong class="text-primary fw-bold">${item.price[i]}<small class="fs-7">هزار تومان</small></strong>
+                    <strong class="text-primary fw-bold">${item.price[i]}<small class="fs-7">تومان</small></strong>
                 </li>
                 `
                     );
@@ -237,8 +237,8 @@ const generateMenuItems = (cat) => {
                 <h5 class="menu-item-title ps-3 ">${item.name}</h5>
                 <div class="menu-item-content pt-0 px-3 fs-6s">${item.description}</div>
                 <span class="fs-6l mt-2 mb-2  px-4 ">
-                    <b>${item.price}</b>
-                    <small>هزار تومان</small>
+                    <b>${(item.price).toLocaleString()}</b>
+                    <small>تومان</small>
                 </span>
                 <div class="row justify-content-around">
                     <button class="btn btn-warning col-5 d-inline" id="edit-item-${item.id}">Edit</button>
@@ -329,7 +329,7 @@ async function editItem(id) {
     foodDesc.value = food.description;
     categorySelection.value = `${catFinded.id} - ${catFinded.title}`;
     // const catId = categorySelection.value.split("-")[0];
-    foodPrice.value = food.price[0];
+    foodPrice.value = food.price;
 
 
 }
@@ -363,7 +363,7 @@ async function submit(e) {
                 duplicateFood.OptionType = [optionallityValue]
                 duplicateFood.options[0] = foodOption.value
             }
-            duplicateFood.price[0] = Number(foodPrice.value)
+            duplicateFood.price = Number(foodPrice.value)
         }
 
         else {
@@ -390,7 +390,7 @@ async function submit(e) {
 
         orders[duplicateFoodIndex] = {
             id: orders[duplicateFoodIndex].id,
-            title: foodNameValue,
+            name: foodNameValue,
             categoryId: catId ? Number(catId) : duplicateFood.categoryId,
             price: duplicateFood.price,
             isOptional: duplicateFood.isOptional,
@@ -415,9 +415,9 @@ async function submit(e) {
 
         const foodObject = {
             id: foodId,
-            title: foodNameValue,
+            name: foodNameValue,
             categoryId: Number(catId),
-            price: [foodPriceValue],
+            price: foodPriceValue,
             isOptional: foodOptionValue ? true : false,
             OptionType: foodOptionValue ? optionallityValue : false,
             options: [foodOptionValue ? foodOptionValue : null],
@@ -556,192 +556,192 @@ formSubmit.addEventListener("submit", (e) => {
 
 
 
-orders = [
-    {
-        id: 1,
-        categoryId: 1,
-        name: 'موکا | Mocha',
-        price: 80000,
-        imgName: 'mocha.jpg',
-        description: 'شکلات , شیر فرم گرفته , اسپرسو و خامه زده شده ',
-        isOptional: false,
-        OptionType: "",
-        options: []
+// orders = [
+//     {
+//         id: 1,
+//         categoryId: 1,
+//         name: 'موکا | Mocha',
+//         price: 80000,
+//         imgName: 'mocha.jpg',
+//         description: 'شکلات , شیر فرم گرفته , اسپرسو و خامه زده شده ',
+//         isOptional: false,
+//         OptionType: "",
+//         options: []
 
-    },
-    {
-        id: 2,
-        categoryId: 2,
-        name: 'شیراز | Shiraz',
-        price: 1000,
-        imgName: 'shiraz.jpg',
-        description: ' سکنجبین , زعفران و آب سودا',
-        isOptional: false,
-        OptionType: "",
-        options: []
-    },
-    {
-        id: 3,
-        categoryId: 3,
-        name: 'چای سبز| Green tea',
-        price: 40000,
-        imgName: 'green.jpg',
-        description: 'چای سبز و عسل',
-        isOptional: false,
-        OptionType: "",
-        options: []
-    },
-    {
-        id: 4,
-        categoryId: 4,
-        name: 'چری بری|Cherry berry',
-        price: 1000,
-        imgName: 'chery.jpg',
-        description: 'شاتوت , توت فرنگی و آلبالو ',
-        isOptional: false,
-        OptionType: "",
-        options: []
-    },
-    {
-        id: 5,
-        categoryId: 1,
-        name: ' وایت چاکلت | Chocolate',
-        price: 95000,
-        imgName: 'mint.jpg',
-        description: 'شکلات سفید , وانیل و شیر ',
-        isOptional: false,
-        OptionType: "",
-        options: []
-    },
-    {
-        id: 6,
-        categoryId: 2,
-        name: 'کاشان  | Kashan',
-        price: 1000,
-        imgName: 'kashan.jpg',
-        description: 'زعفران , تخم شربتی, پنیرک و خاکشیر',
-        isOptional: false,
-        OptionType: "",
-        options: []
-    },
-    {
-        id: 7,
-        categoryId: 6,
-        name: 'جینجر لایم | Gingerlime',
-        price: 1000,
-        imgName: 'ginger.jpg',
-        description: 'زنجبیل و لیمو',
-        isOptional: false,
-        OptionType: "",
-        options: []
-    },
-    {
-        id: 8,
-        categoryId: 3,
-        name: 'گلدن وانیلا | Golden vanila',
-        price: 1000,
-        imgName: 'vanill.jpg',
-        description: ' میخک , وانیل , دارچین و سیب زرد',
-        isOptional: false,
-        OptionType: "",
-        options: []
-    },
-    {
-        id: 9,
-        categoryId: 4,
-        name: 'مانگو بری| Mongo berry',
-        price: 1000,
-        imgName: 'mongo.jpg',
-        description: ' توت فرنگی , آب انبه و پرتقال',
-        isOptional: false,
-        OptionType: "",
-        options: []
-    },
-    {
-        id: 10,
-        categoryId: 5,
-        name: 'ترامیسو | Tiramisu',
-        price: 1000,
-        imgName: 'tramiso.jpg',
-        description: ' بیسکوییت , پنیر خامه ای و کافی میکس',
-        isOptional: false,
-        OptionType: "",
-        options: []
-    },
-    {
-        id: 11,
-        categoryId: 4,
-        name: 'موهیتو | Mojito',
-        price: 125000,
-        imgName: 'mohito.jpg',
-        description: ' آب گازدار , برگ نعناع , شکر , رام سفید و آبلیمو ',
-        isOptional: false,
-        OptionType: "",
-        options: []
-    },
-    {
-        id: 12,
-        categoryId: 3,
-        name: 'چای مراکشی | Moroccan ',
-        price: 72000,
-        imgName: 'marakeshi.jpg',
-        description: ' چای سیاه، چای سبز،برگ نعناع، تکه های میوه های استوایی',
-        isOptional: false,
-        OptionType: "",
-        options: []
-    },
-    {
-        id: 13,
-        categoryId: 1,
-        name: 'ماسالا| Masala',
-        price: 95000,
-        imgName: 'masala.jpg',
-        description: 'چای سیاه، شیر ,زنجبیل , هل , دارچین و فلفل سیاه',
-        isOptional: false,
-        OptionType: "",
-        options: []
-    },
-    {
-        id: 14,
-        categoryId: 2,
-        name: 'کافه گلاسه|Cafe glace',
-        price: 111000,
-        imgName: 'glaseh.jpg',
-        description: 'شیر, بستنی , نسکافه و سس شکلات',
-        isOptional: false,
-        OptionType: "",
-        options: []
-    },
-    {
-        id: 15,
-        categoryId: 2,
-        name: 'آیس لته|iced latte',
-        price: 110000,
-        imgName: 'icelate.jpg',
-        description: 'اسپرسو , یخ و شیر سرد ',
-        isOptional: false,
-        OptionType: "",
-        options: []
-    }
-];
+//     },
+//     {
+//         id: 2,
+//         categoryId: 2,
+//         name: 'شیراز | Shiraz',
+//         price: 1000,
+//         imgName: 'shiraz.jpg',
+//         description: ' سکنجبین , زعفران و آب سودا',
+//         isOptional: false,
+//         OptionType: "",
+//         options: []
+//     },
+//     {
+//         id: 3,
+//         categoryId: 3,
+//         name: 'چای سبز| Green tea',
+//         price: 40000,
+//         imgName: 'green.jpg',
+//         description: 'چای سبز و عسل',
+//         isOptional: false,
+//         OptionType: "",
+//         options: []
+//     },
+//     {
+//         id: 4,
+//         categoryId: 4,
+//         name: 'چری بری|Cherry berry',
+//         price: 1000,
+//         imgName: 'chery.jpg',
+//         description: 'شاتوت , توت فرنگی و آلبالو ',
+//         isOptional: false,
+//         OptionType: "",
+//         options: []
+//     },
+//     {
+//         id: 5,
+//         categoryId: 1,
+//         name: ' وایت چاکلت | Chocolate',
+//         price: 95000,
+//         imgName: 'mint.jpg',
+//         description: 'شکلات سفید , وانیل و شیر ',
+//         isOptional: false,
+//         OptionType: "",
+//         options: []
+//     },
+//     {
+//         id: 6,
+//         categoryId: 2,
+//         name: 'کاشان  | Kashan',
+//         price: 1000,
+//         imgName: 'kashan.jpg',
+//         description: 'زعفران , تخم شربتی, پنیرک و خاکشیر',
+//         isOptional: false,
+//         OptionType: "",
+//         options: []
+//     },
+//     {
+//         id: 7,
+//         categoryId: 6,
+//         name: 'جینجر لایم | Gingerlime',
+//         price: 1000,
+//         imgName: 'ginger.jpg',
+//         description: 'زنجبیل و لیمو',
+//         isOptional: false,
+//         OptionType: "",
+//         options: []
+//     },
+//     {
+//         id: 8,
+//         categoryId: 3,
+//         name: 'گلدن وانیلا | Golden vanila',
+//         price: 1000,
+//         imgName: 'vanill.jpg',
+//         description: ' میخک , وانیل , دارچین و سیب زرد',
+//         isOptional: false,
+//         OptionType: "",
+//         options: []
+//     },
+//     {
+//         id: 9,
+//         categoryId: 4,
+//         name: 'مانگو بری| Mongo berry',
+//         price: 1000,
+//         imgName: 'mongo.jpg',
+//         description: ' توت فرنگی , آب انبه و پرتقال',
+//         isOptional: false,
+//         OptionType: "",
+//         options: []
+//     },
+//     {
+//         id: 10,
+//         categoryId: 5,
+//         name: 'ترامیسو | Tiramisu',
+//         price: 1000,
+//         imgName: 'tramiso.jpg',
+//         description: ' بیسکوییت , پنیر خامه ای و کافی میکس',
+//         isOptional: false,
+//         OptionType: "",
+//         options: []
+//     },
+//     {
+//         id: 11,
+//         categoryId: 4,
+//         name: 'موهیتو | Mojito',
+//         price: 125000,
+//         imgName: 'mohito.jpg',
+//         description: ' آب گازدار , برگ نعناع , شکر , رام سفید و آبلیمو ',
+//         isOptional: false,
+//         OptionType: "",
+//         options: []
+//     },
+//     {
+//         id: 12,
+//         categoryId: 3,
+//         name: 'چای مراکشی | Moroccan ',
+//         price: 72000,
+//         imgName: 'marakeshi.jpg',
+//         description: ' چای سیاه، چای سبز،برگ نعناع، تکه های میوه های استوایی',
+//         isOptional: false,
+//         OptionType: "",
+//         options: []
+//     },
+//     {
+//         id: 13,
+//         categoryId: 1,
+//         name: 'ماسالا| Masala',
+//         price: 95000,
+//         imgName: 'masala.jpg',
+//         description: 'چای سیاه، شیر ,زنجبیل , هل , دارچین و فلفل سیاه',
+//         isOptional: false,
+//         OptionType: "",
+//         options: []
+//     },
+//     {
+//         id: 14,
+//         categoryId: 2,
+//         name: 'کافه گلاسه|Cafe glace',
+//         price: 111000,
+//         imgName: 'glaseh.jpg',
+//         description: 'شیر, بستنی , نسکافه و سس شکلات',
+//         isOptional: false,
+//         OptionType: "",
+//         options: []
+//     },
+//     {
+//         id: 15,
+//         categoryId: 2,
+//         name: 'آیس لته|iced latte',
+//         price: 110000,
+//         imgName: 'icelate.jpg',
+//         description: 'اسپرسو , یخ و شیر سرد ',
+//         isOptional: false,
+//         OptionType: "",
+//         options: []
+//     }
+// ];
 
-setRequest(orders, 'orders')
-
-
+// setRequest(orders, 'orders')
 
 
 
 
-category = [
-    { id: 1, title: "نوشیدنی های گرم", imgName: "hot-drink_2387020.png" },
-    { id: 2, title: "نوشیدنی های سرد", imgName: "ice-cream_938012.png" },
-    { id: 3, title: "چای و دمنوش  ", imgName: "tea.png" },
-    { id: 4, title: "فراپه و اسموتی ", imgName: "smoothies_.png" },
-    { id: 5, title: "کیک و دسر ", imgName: "cake.png" },
-    { id: 6, title: "ماکتیل ", imgName: "mocktail.png" }
-];
 
- setRequest(category, 'category')
+
+// category = [
+//     { id: 1, title: "نوشیدنی های گرم", imgName: "hot-drink_2387020.png" },
+//     { id: 2, title: "نوشیدنی های سرد", imgName: "ice-cream_938012.png" },
+//     { id: 3, title: "چای و دمنوش  ", imgName: "tea.png" },
+//     { id: 4, title: "فراپه و اسموتی ", imgName: "smoothies_.png" },
+//     { id: 5, title: "کیک و دسر ", imgName: "cake.png" },
+//     { id: 6, title: "ماکتیل ", imgName: "mocktail.png" }
+// ];
+
+//  setRequest(category, 'category')
 
 
 
