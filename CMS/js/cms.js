@@ -316,7 +316,7 @@ async function editItem(id) {
     let food = orders.find((item) => item.id == id);
     let catFinded = category.find((item) => item.id == food.categoryId);
     // let arrayIndex = orders.indexOf(food);
-    foodName.value = food.title;
+    foodName.value = food.name;
     optionallity.value = food.OptionType;
     // foodOption.value = food.options[0];
 
