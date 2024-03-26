@@ -197,17 +197,28 @@ displayCategory.addEventListener('click', () => {
     createModalCategory(category)
 })
 
+
 function closeContainerModal() {
-    containerModal.style.display = "none";
+    containerModal.classList.add('fade-out');
     const itemNavModals = document.querySelectorAll('.itemNav-modal');
     itemNavModals.forEach(itemNavModal => {
         itemNavModal.style.visibility = "hidden";
+        
     });
+    
+    setTimeout(() => {
+        containerModal.style.display = "none";
+        containerModal.classList.remove('fade-out');
+    }, 2000); 
 }
 
+
+
+
+
 function createModalOrder(order) {
-    containerModalBaverage.style.visibility = "visible"
     containerModalBaverage.innerHTML = "";
+    containerModalBaverage.style.visibility = "visible"
     const tagModal = `
     <div class="display-box-baverage">
     <img src="images/${order.imgName}">
@@ -227,18 +238,31 @@ function createModalOrder(order) {
 }
 main.addEventListener('click', e => {
     if (!e.target.classList.contains('add')) {
+        console.log(e.target)
         const orderElement = e.target.closest('.container-Beverages');
         const orderElementId = orderElement && orderElement.id;
         const order = orders.find(item => `beverage-${item.id}` == orderElementId);
         order && createModalOrder(order)
     }
 })
+
+
+ let isModalOpen = true;
+
 containerModalBaverage.addEventListener('click', (e) => {
     closeMmodal = document.querySelector('.close-modal')
-    if (e.target.classList.contains('close-modal'))
+    if (e.target.classList.contains('close-modal')) {
         containerModalBaverage.style.visibility = "hidden";
+        containerModalBaverage.classList.add('fade-out');
+        isModalOpen = false;
+    } else {
+        if (!isModalOpen) {
+            containerModalBaverage.style.visibility = "visible";
+            containerModalBaverage.classList.remove('fade-out');
+            isModalOpen = true;
+        }
+    }
 })
-
 
 
 function displayMainProducts() {
@@ -294,12 +318,18 @@ const containerOrderList = document.querySelector('.container-order-list');
 
 
 shopping.addEventListener('click', () => {
-    containerOrderList.classList.add('display');
+    containerOrderList.classList.add('scale-in-ver-center');
+    //containerOrderList.classList.add('display');
+    containerOrderList.style.display = "block";
 })
 
 closeShopping.addEventListener('click', () => {
+    //containerOrderList.classList.add('fade-out');
     containerOrderList.classList.remove('display');
 })
+
+
+
 
 let shoppingCart = [];
 let totalPrice = 0;
@@ -389,6 +419,19 @@ function updateCart() {
 
 
 
+const theme1Btn = document.querySelector('.theme1');
+const theme2Btn = document.querySelector('.theme2');
+const body = document.querySelector('body');
+
+theme1Btn.addEventListener('click', function() {
+  body.classList.remove('theme2');
+  body.classList.add('theme1');
+});
+
+theme2Btn.addEventListener('click', function() {
+  body.classList.remove('theme1');
+  body.classList.add('theme2');
+});
 
 
 
@@ -403,36 +446,3 @@ function updateCart() {
 
 
 
-
-//دسترسی به المان‌های مورد نیاز
-// const quantityElement = document.getElementById('quantity');
-// const totalCountElement = document.getElementById('totalCount');
-// const totalButton = document.getElementById('total');
-// const increaseButton = document.getElementById('increase');
-// const decreaseButton = document.getElementById('decrease');
-
-// //let quantity = 0;
-// let totalCount = 0;
-// let totalPrice = 0;
-
-// // اضافه کردن به سبد خرید
-// increaseButton.addEventListener('click', function() {
-//   quantity++;
-//   totalCount++;
-//   totalPrice += 80000; // قیمت هر مورد
-//   quantityElement.textContent = quantity;
-//   totalCountElement.textContent = totalCount;
-//   totalButton.textContent = `قیمت کل : ${totalPrice} تومان`;
-// });
-
-// // کاهش از سبد خرید
-// decreaseButton.addEventListener('click', function() {
-//   if (quantity > 0) {
-//     quantity--;
-//     totalCount--;
-//     totalPrice -= 80000; // قیمت هر مورد
-//     quantityElement.textContent = quantity;
-//     totalCountElement.textContent = totalCount;
-//     totalButton.textContent = `قیمت کل : ${totalPrice} تومان`;
-//   }
-// });
